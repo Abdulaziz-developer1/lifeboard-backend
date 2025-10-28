@@ -23,15 +23,22 @@ exports.getUserById = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(
-      req.body.password,
-      config.SALT_LEVEL
-    );
-    const newUser = new User({ ...req.body, password: hashedPassword });
+    const hashedPassword = await bcrypt.hash(req.body.password, config.SALT_LEVEL);
+
+    const newUser = new User({
+      name: req.body.name,
+      username: req.body.username,
+      password: hashedPassword,
+    });
+
     await newUser.save();
+
+    const token = jwt.sign({ id: newUser._id }, config.JWT_SECRET, { expiresIn: "7d" });
+
     const userObj = newUser.toObject();
     delete userObj.password;
-    res.json(userObj);
+
+    res.status(201).json({ message: "User registered successfully!", user: userObj, token });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
