@@ -1,7 +1,7 @@
 const allowedOrigins = [
   process.env.CLIENT_ORIGIN,
   process.env.PROD_CLIENT_ORIGIN,
-  'http://localhost:5173'
+  "http://localhost:5173",
 ];
 
 const corsOptions = {
@@ -10,13 +10,13 @@ const corsOptions = {
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     } else {
-      return callback(new Error('CORS policy: Not allowed'), false);
+      return callback(new Error("CORS policy: Not allowed"), false);
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 
 module.exports = corsOptions;
