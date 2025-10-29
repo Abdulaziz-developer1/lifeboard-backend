@@ -52,5 +52,5 @@ mongoose
 
 // Start server
 server.listen(config.PORT, () => {
-  console.log("Server is online!, port: ", config.PORT);
+  console.log("Server is online!");
 });
